@@ -1,10 +1,8 @@
-FROM python:3.7-alpine AS BASE
+# TODO: (Remove this comment after openwisp_base is finalized) -- original file: https://github.com/atb00ker/docker-openwisp/blob/b927915a37ee4f8f637eeede5272f8c4629b50fe/build/openwisp_topology/Dockerfile (Size difference -- 320MB)
+
+FROM atb00ker/ready-to-run:openwisp-base
 
 WORKDIR /opt/openwisp/
-RUN apk add  --update --no-cache build-base postgresql-dev gettext python3-dev linux-headers
-RUN pip install openwisp-network-topology psycopg2 uwsgi
-
-FROM BASE
 
 COPY ./common/ /opt/openwisp/
 COPY ./openwisp_topology/urls.py \ 

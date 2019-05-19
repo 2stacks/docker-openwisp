@@ -1,9 +1,26 @@
 version: "3"
 
 services:
+  base:
+    image: atb00ker/ready-to-run:openwisp-base
+    build:
+      context: build
+      dockerfile: openwisp_base/Dockerfile
+      args:
+        DASHBOARD_APP_PORT: $DASHBOARD_APP_PORT
+    deploy:
+      replicas: 1
+    environment:
+      - DB_ENGINE=$DB_GIS_ENGINE
+    env_file:
+      - .env
+    volumes:
+      - openwisp_static:/opt/openwisp/static
+      - openwisp_media:/opt/openwisp/media
+
   dashboard:
     image: atb00ker/ready-to-run:openwisp-dashboard
-    build: 
+    build:
       context: build
       dockerfile: openwisp_dashboard/Dockerfile
       args:
@@ -20,6 +37,7 @@ services:
     depends_on:
       - postgres
       - redis
+      - base
 
   controller:
     image:  atb00ker/ready-to-run:openwisp-controller
@@ -40,6 +58,7 @@ services:
       - postgres
       - redis
       - dashboard
+      - base
 
   radius:
     image: atb00ker/ready-to-run:openwisp-radius
@@ -55,6 +74,7 @@ services:
     depends_on:
       - postgres
       - dashboard
+      - base
 
   topology:
     image: atb00ker/ready-to-run:openwisp-topology
@@ -70,6 +90,7 @@ services:
     depends_on:
       - postgres
       - dashboard
+      - base
 
   orchestration:
     image: atb00ker/ready-to-run:openwisp-orchestration
