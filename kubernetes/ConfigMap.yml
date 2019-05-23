@@ -17,3 +17,7 @@ metadata:
 data:
   DJANGO_SECRET_KEY: MY_COMPANY_SECRET_KEY
   DB_HOST: postgresql
+  DASHBOARD_DOMAIN: openwisp-dashboard.2stacks.net
+  CONTROLLER_DOMAIN: openwisp-controller.2stacks.net
+  RADIUS_DOMAIN: openwisp-radius.2stacks.net
+  TOPOLOGY_DOMAIN: openwisp-topology.2stacks.net
